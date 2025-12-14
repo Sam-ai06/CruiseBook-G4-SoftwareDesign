@@ -6,8 +6,9 @@ import java.util.List;
 
 import com.espol.enums.estadoCabina;
 import com.espol.enums.estadoReserva;
+import com.espol.observer.Subscriber;
 
-public class Cliente extends Usuario {
+public class Cliente extends Usuario implements Subscriber {
 
   private List<Reserva> reservas = new ArrayList<>();
 
@@ -60,5 +61,10 @@ public class Cliente extends Usuario {
   public List<Reserva> getReservas() {
     return reservas;
   }
+
+   @Override
+    public void update(String mensaje) {
+        System.out.println("Notificación para " + getNombre() + ": " + mensaje);
+    }
 
 }

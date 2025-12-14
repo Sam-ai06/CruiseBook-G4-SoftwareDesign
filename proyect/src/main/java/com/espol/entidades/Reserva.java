@@ -13,6 +13,8 @@ public class Reserva {
     private LocalDateTime fechaCreacion;
     private Tarifa tarifa;
 
+
+
     //lista de cabinas reservadas para evitar que se repitan reservas
     private List<Cabina> cabinasReservadas;
 
@@ -55,10 +57,6 @@ public class Reserva {
         return estado;
     }
 
-    public void setEstadoReserva(estadoReserva estado){
-        this.estado = estado;
-    }
-
     public LocalDateTime getFechaCreacion(){
         return fechaCreacion;
     }
@@ -67,7 +65,7 @@ public class Reserva {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Tarifa geTarifa(){
+    public Tarifa getTarifa(){
         return tarifa;
     }
 
@@ -81,9 +79,8 @@ public class Reserva {
     public void setEstado(estadoReserva estado) {
         this.estado = estado;
     }
-    public Tarifa getTarifa() {
-        return tarifa;
-    }
+    
+    
     public List<Cabina> getCabinasReservadas() {
         return cabinasReservadas;
     }
@@ -99,5 +96,16 @@ public class Reserva {
     private void reembolsar(){
         // to do
     }
+    
+    //observer pattern
+    private Notificadora notificadora = new Notificadora();
 
+    public void suscribirCliente(Cliente cliente) {
+        notificadora.subscribe(cliente);
+    }
+
+    public void setEstadoReserva(estadoReserva estado) {
+        this.estado = estado;
+        notificadora.notifySubscribers("La reserva ha cambiado a estado: " + estado);
+    }
 }
