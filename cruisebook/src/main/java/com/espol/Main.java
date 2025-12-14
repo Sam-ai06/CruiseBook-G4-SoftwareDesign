@@ -16,15 +16,30 @@ import com.espol.entidades.notifSender;
 import com.espol.enums.estadoCabina;
 import com.espol.enums.medioNotif;
 import com.espol.enums.tipoCabina;
+import com.espol.factoryMethod.ClienteCreator;
+import com.espol.factoryMethod.GerenciaCreator;
+import com.espol.factoryMethod.OperadorCreator;
+import com.espol.factoryMethod.UsuarioCreator;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Usuarios de ejemplo
-        Cliente cliente1 = new Cliente("Samuel", "0999999999", "samuel@mail.com", "samuel", "1234");
-        Operador operador1 = new Operador("Lucía", "0888888888", "lucia@mail.com", "lucia", "abcd");
-        Gerencia gerencia1 = new Gerencia("Carlos", "0777777777", "carlos@mail.com", "carlos", "4321", "Atención al cliente");
+         //usuarios de ejemplo (adaptados a factory method)
+        UsuarioCreator clienteCreator = new ClienteCreator();
+        UsuarioCreator operadorCreator = new OperadorCreator();
+        UsuarioCreator gerenciaCreator = new GerenciaCreator("Atención al cliente");
+
+        Usuario cliente1 = clienteCreator.crearUsuario("Samuel", "0989765439", 
+        "samuel@mail.com", "samuel", "1234");
+        
+
+        Usuario operador1 = operadorCreator.crearUsuario("Annie", "0987654312", 
+        "annie@mail.com", "annie", "abcd");
+        
+
+        Usuario gerencia1 = gerenciaCreator.crearUsuario("Mathias", "0976543098", 
+        "mathias@mail.com", "mathias", "4321");
 
         List<Usuario> usuarios = List.of(cliente1, operador1, gerencia1);
 

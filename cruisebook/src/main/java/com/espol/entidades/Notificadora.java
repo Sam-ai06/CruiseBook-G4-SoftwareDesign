@@ -26,4 +26,8 @@ public class Notificadora implements Subject {
             s.update(mensaje);
         }
     }
+    public void cambiarEstado(String nuevoEstado) {
+        String mensaje = "El estado ha cambiado a: " + nuevoEstado;
+        notifySubscribers(mensaje);
+    }
 }
