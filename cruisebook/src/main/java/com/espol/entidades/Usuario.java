@@ -2,8 +2,10 @@ package com.espol.entidades;
 
 import com.espol.interfaces.ValidadorCredenciales;
 import com.espol.interfaces.autenticable;
+import com.espol.enums.medioNotif;
+import com.espol.observer.Subscriber;
 
-public class Usuario {// implements autenticable{
+public class Usuario implements Subscriber  {
   private String nombre;
   private String telefono;
   private String mail;
@@ -66,8 +68,7 @@ public class Usuario {// implements autenticable{
   private ValidadorCredenciales validador;
 
   public void update(String mensaje) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+    System.out.println("Notificación para " + nombre + ": " + mensaje);
   }
 
   /*//login y logout
