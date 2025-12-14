@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.espol.enums.estadoCabina;
 import com.espol.enums.estadoReserva;
+import com.espol.enums.medioNotif;
 import com.espol.observer.Subscriber;
 
 public class Cliente extends Usuario implements Subscriber {
@@ -63,8 +64,8 @@ public class Cliente extends Usuario implements Subscriber {
   }
 
   @Override
-  public void update(String mensaje) {
-    System.out.println("Notificación para " + getNombre() + ": " + mensaje);
+  public void update(String mensaje, medioNotif medio) {
+    System.out.println("Notificación para " + getNombre() + " vía " + medio + ": " + mensaje);
   }
 
 }

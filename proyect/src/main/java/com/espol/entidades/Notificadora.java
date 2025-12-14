@@ -23,7 +23,7 @@ public class Notificadora implements Subject {
     @Override
     public void notifySubscribers(String mensaje) {
         for (Subscriber s : subscribers) {
-            s.update(mensaje);
+            s.update(mensaje, null);
         }
     }
 }
