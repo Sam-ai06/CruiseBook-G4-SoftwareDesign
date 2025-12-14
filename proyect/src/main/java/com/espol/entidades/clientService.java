@@ -1,18 +1,21 @@
 package com.espol.entidades;
+import com.espol.chainResponsability.AtencionClienteHandler;
+import com.espol.chainResponsability.GerenciaHandler;
+import com.espol.chainResponsability.ManejadorIncidente;
 
-public class clientService {
 
-    // Constructor vacío
-    public clientService() {
-    
+public class ClientService {
+
+    private ManejadorIncidente cadena;
+
+    public ClientService() {
+        ManejadorIncidente atencion = new AtencionClienteHandler();
+        ManejadorIncidente gerencia = new GerenciaHandler();
+        atencion.setSiguiente(gerencia);
+        this.cadena = atencion;
     }
 
-    // Métodos
-    public void manejarIncidente(Incidente incidente) {
-        // Lógica para manejar el incidente
-    }
-
-    public void escalarIncidente(Incidente incidente) {
-        // Lógica para escalar el incidente a Gerencia
+    public void reportarIncidente(Incidente incidente) {
+        cadena.manejarIncidente(incidente);
     }
 }

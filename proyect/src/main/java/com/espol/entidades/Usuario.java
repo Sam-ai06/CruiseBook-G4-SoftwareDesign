@@ -65,6 +65,11 @@ public class Usuario {// implements autenticable{
   //uso de abstracciones
   private ValidadorCredenciales validador;
 
+  public void update(String mensaje) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'update'");
+  }
+
   /*//login y logout
   @Override
   public Usuario login(String user, String pass){

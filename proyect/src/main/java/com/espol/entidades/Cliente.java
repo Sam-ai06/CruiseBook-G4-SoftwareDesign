@@ -62,9 +62,9 @@ public class Cliente extends Usuario implements Subscriber {
     return reservas;
   }
 
-   @Override
-    public void update(String mensaje) {
-        System.out.println("Notificación para " + getNombre() + ": " + mensaje);
-    }
+  @Override
+  public void update(String mensaje) {
+    System.out.println("Notificación para " + getNombre() + ": " + mensaje);
+  }
 
 }

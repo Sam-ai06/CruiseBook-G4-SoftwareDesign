@@ -6,6 +6,12 @@ public class Incidente {
   private String descripcion;
   private estadoIncidente estado;
 
+  public Incidente(String descripcion) {
+        this.descripcion = descripcion;
+        this.estado = estadoIncidente.ABIERTO;
+    }
+
+
   //asignar a un agente el incidente
   private void asignarAgente(){
     //to do
