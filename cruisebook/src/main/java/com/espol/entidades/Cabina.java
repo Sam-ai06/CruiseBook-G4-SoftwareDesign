@@ -60,8 +60,4 @@ public class Cabina {
     this.estado = estado;
   }
 
-
-
-  
-
 }
