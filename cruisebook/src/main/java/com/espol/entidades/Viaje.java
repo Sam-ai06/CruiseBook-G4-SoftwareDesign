@@ -1,20 +1,25 @@
 package com.espol.entidades;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.espol.enums.tipoCabina;
+import com.espol.enums.estadoCabina;
+
 
 public class Viaje {
     private LocalDate fechaSalida;
     private int duracionDias;
     private Ruta ruta;  // Asociación con la clase Ruta
 
+    private List<Cabina> cabinas;
     // Constructor
-    public Viaje(LocalDate fechaSalida, int duracionDias, Ruta ruta) {
+    public Viaje(LocalDate fechaSalida, int duracionDias, Ruta ruta, List<Cabina> cabinas) {
         this.fechaSalida = fechaSalida;
         this.duracionDias = duracionDias;
         this.ruta = ruta;
+        this.cabinas = cabinas;
     }
 
     // Getters y Setters
@@ -44,11 +49,20 @@ public class Viaje {
 
     // Métodos solicitados
     public List<Cabina> obtenerCabinasDisponibles(tipoCabina tipo) {
-        // TODO: retornar lista de cabinas disponibles según el tipo
-        return null;
+        List<Cabina> disponibles = new ArrayList<>();
+        for (Cabina c : cabinas) {
+            if (c.getTipo() == tipo && c.getEstado() == estadoCabina.DISPONIBLE) {
+                disponibles.add(c);
+            }
+        }
+        return disponibles;
     }
 
     public void actualizarEstadoCabinas() {
-        // TODO: actualizar el estado de las cabinas según disponibilidad o mantenimiento
+        for (Cabina c : cabinas) {
+            if (c.getEstado() == estadoCabina.RESERVADA) {
+                c.setEstado(estadoCabina.OCUPADA);
+            }
+        }
     }
 }

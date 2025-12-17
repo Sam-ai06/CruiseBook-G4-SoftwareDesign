@@ -5,7 +5,7 @@ import com.espol.interfaces.autenticable;
 import com.espol.enums.medioNotif;
 import com.espol.observer.Subscriber;
 
-public class Usuario implements Subscriber  {
+public abstract class Usuario implements Subscriber  {
   private String nombre;
   private String telefono;
   private String mail;

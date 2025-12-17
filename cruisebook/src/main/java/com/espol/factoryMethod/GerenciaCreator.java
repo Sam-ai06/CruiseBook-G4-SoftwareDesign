@@ -3,7 +3,7 @@ package com.espol.factoryMethod;
 import com.espol.entidades.Gerencia;
 import com.espol.entidades.Usuario;
 
-public class GerenciaCreator extends UsuarioCreator {
+public class GerenciaCreator extends UsersCreator {
 
     private String departamento;
 
@@ -12,7 +12,7 @@ public class GerenciaCreator extends UsuarioCreator {
     }
 
     @Override
-    public Usuario crearUsuario(
+    public Usuario createUser(
             String nombre,
             String telefono,
             String mail,

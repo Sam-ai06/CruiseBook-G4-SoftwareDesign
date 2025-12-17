@@ -11,6 +11,7 @@ import com.espol.entidades.Gerencia;
 import com.espol.entidades.Operador;
 import com.espol.entidades.PoliticaCancelacion;
 import com.espol.entidades.Reserva;
+import com.espol.entidades.Tarifa;
 import com.espol.entidades.Usuario;
 import com.espol.entidades.notifSender;
 import com.espol.enums.estadoCabina;
@@ -19,26 +20,26 @@ import com.espol.enums.tipoCabina;
 import com.espol.factoryMethod.ClienteCreator;
 import com.espol.factoryMethod.GerenciaCreator;
 import com.espol.factoryMethod.OperadorCreator;
-import com.espol.factoryMethod.UsuarioCreator;
+import com.espol.factoryMethod.UsersCreator;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
          //usuarios de ejemplo (adaptados a factory method)
-        UsuarioCreator clienteCreator = new ClienteCreator();
-        UsuarioCreator operadorCreator = new OperadorCreator();
-        UsuarioCreator gerenciaCreator = new GerenciaCreator("Atención al cliente");
+        UsersCreator clienteCreator = new ClienteCreator();
+        UsersCreator operadorCreator = new OperadorCreator();
+        UsersCreator gerenciaCreator = new GerenciaCreator("Atención al cliente");
 
-        Usuario cliente1 = clienteCreator.crearUsuario("Samuel", "0989765439", 
+        Usuario cliente1 = clienteCreator.createUser("Samuel", "0989765439", 
         "samuel@mail.com", "samuel", "1234");
         
 
-        Usuario operador1 = operadorCreator.crearUsuario("Annie", "0987654312", 
+        Usuario operador1 = operadorCreator.createUser("Annie", "0987654312", 
         "annie@mail.com", "annie", "abcd");
         
 
-        Usuario gerencia1 = gerenciaCreator.crearUsuario("Mathias", "0976543098", 
+        Usuario gerencia1 = gerenciaCreator.createUser("Mathias", "0976543098", 
         "mathias@mail.com", "mathias", "4321");
 
         List<Usuario> usuarios = List.of(cliente1, operador1, gerencia1);
@@ -177,7 +178,8 @@ public class Main {
                     System.out.print("Mensaje: ");
                     String mensaje = sc.nextLine();
                     notifSender sender = new notifSender();
-                    sender.notificarUsuario(operador, mensaje, medioNotif.EMAIL); //porfavor apégense a las clases existentes y los enums
+                    sender.subscribe(operador);
+                    sender.notifySubscribers(mensaje);
                     System.out.println("Notificación enviada por correo.");
                 }
                 case 3 -> {
@@ -206,10 +208,16 @@ public class Main {
 
             switch (op) {
                 case 1 -> {
-                    Reserva reserva = new Reserva();
-                    gerencia.aprobarReembolso(reserva);
-                    System.out.println("Reembolso aprobado correctamente.");
-                }
+                    //cliente simulado (la reserva ya debió existir en el sistema)
+                        Cliente cliente = new Cliente("Cliente Prueba","0000000000","cliente@mail.com","cliente","1234");
+                        //cabina simulada
+                        Cabina cabina = new Cabina("101",tipoCabina.INTERIOR,estadoCabina.RESERVADA);
+                        //tarifa base
+                        Tarifa tarifa = new Tarifa(100.0);
+                        Reserva reserva = new Reserva(cliente,  null,cabina,tarifa);
+                        gerencia.aprobarReembolso(reserva);
+                        System.out.println("Reembolso aprobado correctamente.");
+                    }
                 case 2 -> {
                     PoliticaCancelacion politica = new PoliticaCancelacion("No hay reembolso si cancela despues de partir");
                     gerencia.revisarPoliticas(politica);

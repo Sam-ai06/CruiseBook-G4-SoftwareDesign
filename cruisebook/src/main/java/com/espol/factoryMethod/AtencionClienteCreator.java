@@ -3,10 +3,10 @@ package com.espol.factoryMethod;
 import com.espol.entidades.AtencionCliente;
 import com.espol.entidades.Usuario;
 
-public class AtencionClienteCreator extends UsuarioCreator {
+public class AtencionClienteCreator extends UsersCreator {
 
     @Override
-    public Usuario crearUsuario(
+    public Usuario createUser(
             String nombre,
             String telefono,
             String mail,

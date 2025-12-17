@@ -1,12 +1,22 @@
 package com.espol.entidades;
 
-import com.espol.enums.medioNotif;
+import java.util.ArrayList;
+import java.util.List;
+import com.espol.observer.Subject;
+import com.espol.observer.Subscriber;
 
-public class notifSender {
+public class notifSender implements Subject {
+    private List<Subscriber> subs = new ArrayList<>();
 
-  //encargado de enviar notificaciones a los usuarios
-  public void notificarUsuario(Usuario user, String mensaje, medioNotif medioComunicacion){
-    //to do
-  }
+    @Override
+    public void subscribe(Subscriber s) { subs.add(s); }
+    @Override
+    public void unsubscribe(Subscriber s) { subs.remove(s); }
 
+    public void notifySubscribers(String msg) {
+        for (Subscriber s : subs) {
+            s.update(msg);
+        }
+    }
 }
+

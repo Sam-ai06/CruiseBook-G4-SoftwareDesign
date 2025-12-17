@@ -51,7 +51,7 @@ public class AtencionCliente extends Usuario {
     }
 
     //metodos propios
-    public void atenderIncidente(Incidente incidente) {
+    public void resolverIncidente(Incidente incidente) {
         if (incidente != null) {
             System.out.println(
                 "Atención al Cliente está revisando el incidente: "

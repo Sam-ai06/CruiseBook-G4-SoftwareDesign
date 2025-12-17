@@ -1,17 +1,21 @@
 package com.espol.entidades;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import com.espol.enums.estadoReserva;
+import com.espol.interfaces.ReservaComponent;
 
-public class Reserva {
+public class Reserva implements ReservaComponent{
     private Usuario cliente;
     private Viaje viaje;
     private Cabina cabina;
     private estadoReserva estado;
     private LocalDateTime fechaCreacion;
     private Tarifa tarifa;
+    private Pago pago;
+
 
 
 
@@ -26,7 +30,15 @@ public class Reserva {
         this.fechaCreacion = fechaCreacion;
         this.tarifa = tarifa;
     }
-    public Reserva(){}
+    public Reserva(Usuario cliente, Viaje viaje, Cabina cabina, Tarifa tarifa) {
+        this.cliente = cliente;
+        this.viaje = viaje;
+        this.cabina = cabina;
+        this.tarifa = tarifa;
+        this.fechaCreacion = LocalDateTime.now();
+         this.estado = estadoReserva.PENDIENTE;
+    }
+
 
     // getters y setters de Reserva
     public Usuario getCliente(){
@@ -84,19 +96,32 @@ public class Reserva {
     public List<Cabina> getCabinasReservadas() {
         return cabinasReservadas;
     }
+
     public void setCabinasReservadas(List<Cabina> cabinasReservadas) {
         this.cabinasReservadas = cabinasReservadas;
     }
-    private void confirmar(Pago pago){
-        // to do
+
+    public boolean procesarPago(Pago pago) {
+        this.pago = pago;
+        boolean exito = pago.procesar();
+        if (exito) {
+            setEstadoReserva(estadoReserva.CONFIRMADA);
+        }
+        return exito;
     }
+    
     private void cancelar(){
         // to do
     }
-    private void reembolsar(){
-        // to do
+
+    private void reembolsar() {
+    if (pago != null) {
+        pago.reembolsar();
+        setEstadoReserva(estadoReserva.REEMBOLSADO);
     }
+}
     
+
     //observer pattern
     private Notificadora notificadora = new Notificadora();
 
@@ -107,5 +132,15 @@ public class Reserva {
     public void setEstadoReserva(estadoReserva estado) {
         this.estado = estado;
         notificadora.notifySubscribers("La reserva ha cambiado a estado: " + estado);
+    }
+
+    @Override
+    public String obtenerDescripcion() {
+        return "Reserva para " + cliente.getNombre();
+    }
+
+    @Override
+    public double calcularTotal() {
+        return tarifa.getPrecioTotal();
     }
 }

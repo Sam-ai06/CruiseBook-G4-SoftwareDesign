@@ -37,4 +37,7 @@ public class Destino {
         this.pais = pais;
     }
     
+    public String obtenerResumenRuta() {
+        return nombre + ", " + pais + " - " + descripcion;
+    }
 }
