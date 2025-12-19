@@ -11,4 +11,15 @@ public class DestinoTest {
         String resumen = d.obtenerResumenRuta();
         assertEquals("Quito, Ecuador - Capital", resumen);
     }
+
+    @Test
+    void testGettersSetters() {
+        Destino d = new Destino("Lima", "Ciudad costera", "Perú");
+
+        d.setDescripcion("Capital");
+        d.setPais("PER");
+
+        assertEquals("Capital", d.getDescripcion());
+        assertEquals("PER", d.getPais());
+    }
 }
