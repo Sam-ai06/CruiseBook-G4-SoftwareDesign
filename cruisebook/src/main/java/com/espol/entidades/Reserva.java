@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.espol.enums.estadoReserva;
 import com.espol.interfaces.ReservaComponent;
+import com.espol.observer.Notificadora;
+import com.espol.observer.Subscriber;
 
 public class Reserva implements ReservaComponent{
     private Usuario cliente;
@@ -21,6 +23,7 @@ public class Reserva implements ReservaComponent{
 
     //lista de cabinas reservadas para evitar que se repitan reservas
     private List<Cabina> cabinasReservadas;
+    private Notificadora notificadora = new Notificadora();
 
     public Reserva(Usuario cliente, Viaje viaje, Cabina cabina, estadoReserva estado, LocalDateTime fechaCreacion, Tarifa tarifa){
         this.cliente = cliente;
@@ -121,17 +124,14 @@ public class Reserva implements ReservaComponent{
     }
 }
     
-
-    //observer pattern
-    private Notificadora notificadora = new Notificadora();
-
-    public void suscribirCliente(Cliente cliente) {
-        notificadora.subscribe(cliente);
+    public Notificadora getNotificadora() {
+        return notificadora;
     }
-
+    
     public void setEstadoReserva(estadoReserva estado) {
         this.estado = estado;
-        notificadora.notifySubscribers("La reserva ha cambiado a estado: " + estado);
+        //reserva solo le pide a su notificadora
+        notificadora.enviarAlerta("La reserva ha cambiado a estado: " + estado);
     }
 
     @Override
