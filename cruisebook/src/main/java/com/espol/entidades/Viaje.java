@@ -58,11 +58,11 @@ public class Viaje {
         return disponibles;
     }
 
-    public void actualizarEstadoCabinas() {
-        for (Cabina c : cabinas) {
-            if (c.getEstado() == estadoCabina.RESERVADA) {
-                c.setEstado(estadoCabina.OCUPADA);
-            }
+    public void actualizarEstadoCabinas(List<Cabina> reservadas) {
+    for (Cabina c : reservadas) {
+        //viaje ya no gestiona estados de otra clase, solo delega la acción
+        c.ocupar(); 
         }
     }
+
 }

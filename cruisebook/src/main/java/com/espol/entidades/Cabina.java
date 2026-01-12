@@ -60,4 +60,9 @@ public class Cabina {
     this.estado = estado;
   }
 
+  public void ocupar() {
+        if (this.estado != estadoCabina.OCUPADA) {
+            this.estado = estadoCabina.OCUPADA;
+        }
+  }
 }
