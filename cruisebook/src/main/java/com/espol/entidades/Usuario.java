@@ -7,13 +7,13 @@ import com.espol.observer.Subscriber;
 
 public abstract class Usuario implements Subscriber  {
   private String nombre;
-  private String telefono;
-  private String mail;
+  private Telefono telefono;
+  private Email mail;
   private String usuario;
   private String contrasenia;
 
   //constructor
-  public Usuario(String nombre, String telefono, String mail, String usuario, String contrasenia) {
+  public Usuario(String nombre, Telefono telefono, Email mail, String usuario, String contrasenia) {
     this.nombre = nombre;
     this.telefono = telefono;
     this.mail = mail;
@@ -32,19 +32,19 @@ public abstract class Usuario implements Subscriber  {
     this.nombre = nombre;
   }
 
-  public String getTelefono() {
+  public Telefono getTelefono() {
     return telefono;
   }
 
-  public void setTelefono(String telefono) {
+  public void setTelefono(Telefono telefono) {
     this.telefono = telefono;
   }
 
-  public String getMail() {
+  public Email getMail() {
     return mail;
   }
 
-  public void setMail(String mail) {
+  public void setMail(Email mail) {
     this.mail = mail;
   }
 

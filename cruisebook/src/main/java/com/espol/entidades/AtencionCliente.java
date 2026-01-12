@@ -8,8 +8,8 @@ public class AtencionCliente extends Usuario {
     //constructor
     public AtencionCliente(
             String nombre,
-            String telefono,
-            String mail,
+            Telefono telefono,
+            Email mail,
             String usuario,
             String contrasenia,
             String area,
@@ -23,8 +23,8 @@ public class AtencionCliente extends Usuario {
     //onstructor 
     public AtencionCliente(
             String nombre,
-            String telefono,
-            String mail,
+            Telefono telefono,
+            Email mail,
             String usuario,
             String contrasenia
     ) {

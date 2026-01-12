@@ -1,4 +1,6 @@
 package com.espol.factoryMethod;
+import com.espol.entidades.Telefono;
+import com.espol.entidades.Email;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,7 +16,7 @@ public class ClienteCreatorTest {
         UsersCreator creator = new ClienteCreator();
 
         Usuario user = creator.createUser(
-                "Carlos", "088", "c@test.com", "carlos", "123"
+                "Carlos", new Telefono("088"), new Email("c@test.com"), "carlos", "123"
         );
 
         assertNotNull(user);

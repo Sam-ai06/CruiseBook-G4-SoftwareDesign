@@ -12,7 +12,7 @@ public class Cliente extends Usuario implements Subscriber {
 
   private List<Reserva> reservas = new ArrayList<>();
 
-  public Cliente(String nombre, String telefono, String mail, String usuario, String contrasenia) {
+  public Cliente(String nombre, Telefono telefono, Email mail, String usuario, String contrasenia) {
     super(nombre, telefono, mail, usuario, contrasenia);
     //inicializar lista de reservas
     this.reservas = new ArrayList<>();

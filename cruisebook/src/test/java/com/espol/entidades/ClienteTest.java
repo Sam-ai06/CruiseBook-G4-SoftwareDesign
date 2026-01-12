@@ -1,5 +1,6 @@
 package com.espol.entidades;
 
+
 import com.espol.enums.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,7 +16,7 @@ public class ClienteTest {
 
     @BeforeEach
     void setUp() {
-        cliente = new Cliente("Luis", "099", "l@test.com", "luis", "123");
+        cliente = new Cliente("Luis", new Telefono("099"), new Email("l@test.com"), "luis", "123");
     }
 
     @Test

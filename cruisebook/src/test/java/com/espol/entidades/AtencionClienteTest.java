@@ -1,4 +1,6 @@
 package com.espol.entidades;
+import com.espol.entidades.Telefono;
+import com.espol.entidades.Email;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,8 +14,8 @@ public class AtencionClienteTest {
     void setUp() {
         atencion = new AtencionCliente(
                 "Maria",
-                "0987",
-                "m@test.com",
+                new Telefono("0987"),
+                new Email("m@test.com"),
                 "maria",
                 "123",
                 "Soporte",
@@ -24,7 +26,7 @@ public class AtencionClienteTest {
     @Test
     void testConstructorValoresPorDefecto() {
         AtencionCliente ac = new AtencionCliente(
-                "Ana", "0888", "ana@test.com",
+                "Ana", new Telefono("0888"), new Email("ana@test.com"),
                 "ana", "abcd"
         );
 

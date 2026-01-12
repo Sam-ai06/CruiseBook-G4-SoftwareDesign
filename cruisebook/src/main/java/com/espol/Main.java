@@ -21,6 +21,8 @@ import com.espol.factoryMethod.ClienteCreator;
 import com.espol.factoryMethod.GerenciaCreator;
 import com.espol.factoryMethod.OperadorCreator;
 import com.espol.factoryMethod.UsersCreator;
+import com.espol.entidades.Telefono;
+import com.espol.entidades.Email;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,17 +33,17 @@ public class Main {
         UsersCreator operadorCreator = new OperadorCreator();
         UsersCreator gerenciaCreator = new GerenciaCreator("Atención al cliente");
 
-        Usuario cliente1 = clienteCreator.createUser("Samuel", "0989765439", 
-        "samuel@mail.com", "samuel", "1234");
+        Usuario cliente1 = clienteCreator.createUser("Samuel", new Telefono("0989765439"), 
+        new Email("samuel@mail.com"), "samuel", "1234");
         
 
-        Usuario operador1 = operadorCreator.createUser("Annie", "0987654312", 
-        "annie@mail.com", "annie", "abcd");
+        Usuario operador1 = operadorCreator.createUser("Annie", new Telefono("0987654312"), 
+        new Email("annie@mail.com"), "annie", "abcd");
         
 
-        Usuario gerencia1 = gerenciaCreator.createUser("Mathias", "0976543098", 
-        "mathias@mail.com", "mathias", "4321");
-
+        Usuario gerencia1 = gerenciaCreator.createUser("Mathias", new Telefono("0976543098"), 
+        new Email("mathias@mail.com"), "mathias", "4321");
+        
         List<Usuario> usuarios = List.of(cliente1, operador1, gerencia1);
 
         Usuario usuarioLogueado = null;
@@ -84,7 +86,7 @@ public class Main {
                         System.out.print("Ingrese su contraseña: ");
                         String nuevaPass = sc.nextLine();
 
-                        Cliente nuevoCliente = new Cliente(nombre, telefono, email, nuevoUser, nuevaPass);
+                        Cliente nuevoCliente = new Cliente(nombre, new Telefono(telefono), new Email(email), nuevoUser, nuevaPass);
                         ((ArrayList<Usuario>) usuarios).add(nuevoCliente);
                         System.out.println("Cuenta creada exitosamente. Ahora puede iniciar sesión.");        
                         continue;              
@@ -209,7 +211,7 @@ public class Main {
             switch (op) {
                 case 1 -> {
                     //cliente simulado (la reserva ya debió existir en el sistema)
-                        Cliente cliente = new Cliente("Cliente Prueba","0000000000","cliente@mail.com","cliente","1234");
+                        Cliente cliente = new Cliente("Cliente Prueba", new Telefono("0000000000"), new Email("cliente@mail.com"), "cliente", "1234");
                         //cabina simulada
                         Cabina cabina = new Cabina("101",tipoCabina.INTERIOR,estadoCabina.RESERVADA);
                         //tarifa base

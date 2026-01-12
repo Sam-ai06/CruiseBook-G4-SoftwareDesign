@@ -5,7 +5,7 @@ public class Gerencia extends Usuario {
   private String departamento;
 
   // Constructor
-  public Gerencia(String nombre, String telefono, String mail, String usuario, String contrasenia, String departamento) {
+  public Gerencia(String nombre, Telefono telefono, Email mail, String usuario, String contrasenia, String departamento) {
     super(nombre, telefono, mail, usuario, contrasenia);
     this.departamento = departamento;
   }

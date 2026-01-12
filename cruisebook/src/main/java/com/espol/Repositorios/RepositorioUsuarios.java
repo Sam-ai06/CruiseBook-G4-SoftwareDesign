@@ -8,6 +8,8 @@ import com.espol.entidades.Gerencia;
 import com.espol.entidades.Operador;
 import com.espol.entidades.Usuario;
 import com.espol.interfaces.iRepositorioUsuarios;
+import com.espol.entidades.Telefono;
+import com.espol.entidades.Email;
 
 public class RepositorioUsuarios implements iRepositorioUsuarios{
   private final List<Usuario> usuarios;
@@ -18,9 +20,9 @@ public class RepositorioUsuarios implements iRepositorioUsuarios{
   }
 
   private void cargarDatos(){
-    usuarios.add(new Operador("Samuel", "0967023910", "sammyvilla3006@gmail.com", "samvr", "1234"));
-    usuarios.add(new Gerencia("paula", "0993191139", "pauvbn@gmail.com", "pauvbn", "1234", "Finanzas"));
-    usuarios.add(new Cliente("Abigail", "0991101231", "ejemplo@gmail.com", "abicruz", "4356"));
+    usuarios.add(new Operador("Samuel", new Telefono("0967023910"), new Email("sammyvilla3006@gmail.com"), "samvr", "1234"));
+    usuarios.add(new Gerencia("paula", new Telefono("0993191139"), new Email("pauvbn@gmail.com"), "pauvbn", "1234", "Finanzas"));
+    usuarios.add(new Cliente("Abigail", new Telefono("0991101231"), new Email("ejemplo@gmail.com"), "abicruz", "4356"));
     //más datos
   }
 
