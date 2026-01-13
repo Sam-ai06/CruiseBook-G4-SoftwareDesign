@@ -9,20 +9,19 @@ public abstract class ManejadorIncidente implements BaseHandler {
     public void setSiguiente(BaseHandler handler) {
         this.siguiente = (ManejadorIncidente) handler;
     }
-    
-    public void setSiguiente(ManejadorIncidente manejador) {
-        this.siguiente = manejador;
-    }
-    
-    @Override
-    public abstract void manejarIncidente(Incidente incidente);
+
     
     @Override
     public void procesar(Incidente incidente) {
         if (puedeManejar(incidente)) {
             manejarIncidente(incidente);
         } else if (siguiente != null) {
+            System.out.println(this.getClass().getSimpleName() + ": Escalando incidente...");
             siguiente.procesar(incidente);
+        } else {
+            System.out.println("Fin de la cadena: No se pudo resolver el incidente.");
         }
     }
+    
+    public abstract void manejarIncidente(Incidente incidente);
 }
