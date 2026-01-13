@@ -1,13 +1,9 @@
 package com.espol.entidades;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-
 import com.espol.enums.estadoReserva;
 import com.espol.interfaces.ReservaComponent;
 import com.espol.observer.Notificadora;
-import com.espol.observer.Subscriber;
 
 public class Reserva implements ReservaComponent{
     private Usuario cliente;
@@ -16,13 +12,8 @@ public class Reserva implements ReservaComponent{
     private estadoReserva estado;
     private LocalDateTime fechaCreacion;
     private Tarifa tarifa;
-    private Pago pago;
 
 
-
-
-    //lista de cabinas reservadas para evitar que se repitan reservas
-    private List<Cabina> cabinasReservadas;
     private Notificadora notificadora = new Notificadora();
 
     public Reserva(Usuario cliente, Viaje viaje, Cabina cabina, estadoReserva estado, LocalDateTime fechaCreacion, Tarifa tarifa){
@@ -95,17 +86,9 @@ public class Reserva implements ReservaComponent{
         this.estado = estado;
     }
     
-    
-    public List<Cabina> getCabinasReservadas() {
-        return cabinasReservadas;
-    }
-
-    public void setCabinasReservadas(List<Cabina> cabinasReservadas) {
-        this.cabinasReservadas = cabinasReservadas;
-    }
 
     public boolean procesarPago(Pago pago) {
-        this.pago = pago;
+        if (pago == null) return false;
         boolean exito = pago.procesar();
         if (exito) {
             setEstadoReserva(estadoReserva.CONFIRMADA);
@@ -117,12 +100,12 @@ public class Reserva implements ReservaComponent{
         // to do
     }
 
-    private void reembolsar() {
-    if (pago != null) {
-        pago.reembolsar();
-        setEstadoReserva(estadoReserva.REEMBOLSADO);
+    private void reembolsar(Pago pagoEfectuado) {
+    if (pagoEfectuado != null) {
+            pagoEfectuado.reembolsar();
+            setEstadoReserva(estadoReserva.REEMBOLSADO);
+        }
     }
-}
     
     public Notificadora getNotificadora() {
         return notificadora;

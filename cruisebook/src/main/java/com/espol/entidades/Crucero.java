@@ -1,19 +1,39 @@
 package com.espol.entidades;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Crucero {
     private int idCrucero;
     private String nombre;
     private Ruta viaje;  // Asociación con la clase Ruta
+    private GestorCabina inventarioCabinas;
+    private List<Reserva> reservas;
 
     // Constructor
     public Crucero(int idCrucero, String nombre, Ruta viaje) {
         this.idCrucero = idCrucero;
         this.nombre = nombre;
+        this.inventarioCabinas = new GestorCabina();
         this.viaje = viaje;
     }
-    public Crucero(){
+
+    public Crucero() {
+        this.inventarioCabinas = new GestorCabina();
+        this.reservas = new ArrayList<>();
+    }
+
+    public Reserva reservarCabina(Usuario cliente, Viaje viajeInstancia, Cabina cabina, Tarifa tarifa) {
+        //validar disponibilidad
+        if (this.inventarioCabinas.estaDisponible(cabina)) {
+            //crear reserva
+            Reserva nuevaReserva = new Reserva(cliente, viajeInstancia, cabina, tarifa);
+            this.inventarioCabinas.registrarReserva(cabina);
+            this.reservas.add(nuevaReserva);
+
+            return nuevaReserva;
+        }
+        return null;
     }
 
     // Getters y Setters
