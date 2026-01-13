@@ -9,17 +9,21 @@ import org.junit.jupiter.api.Test;
 
 import com.espol.entidades.Cliente;
 import com.espol.entidades.Usuario;
+import com.espol.entidades.DatosUser;
 
 public class ClienteCreatorTest {
     @Test
     void testCreateUser() {
         UsersCreator creator = new ClienteCreator();
 
-        Usuario user = creator.createUser(
-                "Carlos", new Telefono("088"), new Email("c@test.com"), "carlos", "123"
+        DatosUser datosCarlos = new DatosUser("Carlos", new Telefono("0881234567"), 
+            new Email("c@test.com"), "carlos", "123"
         );
 
-        assertNotNull(user);
-        assertTrue(user instanceof Cliente);
+        Usuario user = creator.createUser(datosCarlos);
+
+        // verificaciones
+        assertNotNull(user, "El objeto usuario no debería ser nulo");
+        assertTrue(user instanceof Cliente, "La factoría debería retornar una instancia de Cliente");
     }
 }

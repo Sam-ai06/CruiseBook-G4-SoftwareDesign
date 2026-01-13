@@ -12,11 +12,8 @@ public class Cliente extends Usuario implements Subscriber {
 
   private List<Reserva> reservas = new ArrayList<>();
 
-  public Cliente(String nombre, Telefono telefono, Email mail, String usuario, String contrasenia) {
-    super(nombre, telefono, mail, usuario, contrasenia);
-    //inicializar lista de reservas
-    this.reservas = new ArrayList<>();
-  }
+  public Cliente(DatosUser datos) {
+        super(datos);}
 
   //métodos propios
   public Crucero buscarCrucero(String destino, String fechaSalida, String fechaLlegada, int duracionDias){

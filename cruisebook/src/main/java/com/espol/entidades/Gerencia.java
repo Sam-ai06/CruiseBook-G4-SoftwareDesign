@@ -4,11 +4,11 @@ public class Gerencia extends Usuario {
 
   private String departamento;
 
-  // Constructor
-  public Gerencia(String nombre, Telefono telefono, Email mail, String usuario, String contrasenia, String departamento) {
-    super(nombre, telefono, mail, usuario, contrasenia);
-    this.departamento = departamento;
-  }
+  // Constructor actualizado con el objeto DatosUser
+  public Gerencia(DatosUser datos, String departamento) {
+        super(datos);
+        this.departamento = departamento;
+    }
 
   // Getter y Setter
   public String getDepartamento() {

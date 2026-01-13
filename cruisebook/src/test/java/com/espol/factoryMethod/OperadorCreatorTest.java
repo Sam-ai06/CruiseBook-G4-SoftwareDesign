@@ -1,6 +1,8 @@
 package com.espol.factoryMethod;
 import com.espol.entidades.Telefono;
 import com.espol.entidades.Email;
+import com.espol.entidades.DatosUser;
+
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,11 +17,14 @@ public class OperadorCreatorTest {
     void testCreateUser() {
         UsersCreator creator = new OperadorCreator();
 
-        Usuario user = creator.createUser(
-                "Juan", new Telefono("066"), new Email("j@test.com"), "juan", "123"
+        DatosUser datosJuan = new DatosUser("Juan", new Telefono("0661234567"), 
+            new Email("j@test.com"), "juan", "123"
         );
 
-        assertNotNull(user);
-        assertTrue(user instanceof Operador);
+        Usuario user = creator.createUser(datosJuan);
+
+        // verificaciones
+        assertNotNull(user, "El objeto operador no deberia ser nulo");
+        assertTrue(user instanceof Operador, "La factoria debería retornar una instancia de Operador");
     }
 }

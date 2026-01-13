@@ -9,7 +9,11 @@ import org.junit.jupiter.api.Test;
 public class ReservaTest {
     @Test
     void testProcesarPago() {
-        Cliente cliente = new Cliente("Luis", new Telefono("099"), new Email("l@test.com"), "luis", "123");
+        DatosUser datosLuis = new DatosUser("Luis", new Telefono("0991234567"), 
+            new Email("l@test.com"), "luis", "123"
+        );
+
+        Cliente cliente = new Cliente(datosLuis);
         Cabina cabina = new Cabina("C1", tipoCabina.SUITE, estadoCabina.RESERVADA);
         Tarifa tarifa = new Tarifa(100);
 

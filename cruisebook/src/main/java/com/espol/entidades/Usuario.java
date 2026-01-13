@@ -6,69 +6,23 @@ import com.espol.enums.medioNotif;
 import com.espol.observer.Subscriber;
 
 public abstract class Usuario implements Subscriber  {
-  private String nombre;
-  private Telefono telefono;
-  private Email mail;
-  private String usuario;
-  private String contrasenia;
+ protected DatosUser datos; //refactoring
 
   //constructor
-  public Usuario(String nombre, Telefono telefono, Email mail, String usuario, String contrasenia) {
-    this.nombre = nombre;
-    this.telefono = telefono;
-    this.mail = mail;
-    this.usuario = usuario;
-    this.contrasenia = contrasenia;
+    //ahora el constructor recibe el objeto completo
+  public Usuario(DatosUser datos) {
+    this.datos = datos;
   }
 
-    //getters y setters
-
-
-  public String getNombre() {
-    return nombre;
-  }
-
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
-
-  public Telefono getTelefono() {
-    return telefono;
-  }
-
-  public void setTelefono(Telefono telefono) {
-    this.telefono = telefono;
-  }
-
-  public Email getMail() {
-    return mail;
-  }
-
-  public void setMail(Email mail) {
-    this.mail = mail;
-  }
-
-  public String getUsuario() {
-    return usuario;
-  }
-
-  public void setUsuario(String usuario) {
-    this.usuario = usuario;
-  }
-
-  public String getContrasenia() {
-    return contrasenia;
-  }
-
-  public void setContrasenia(String contrasenia) {
-    this.contrasenia = contrasenia;
-  }
-
-  //uso de abstracciones
-  private ValidadorCredenciales validador;
+  //getters
+  public String getNombre() { return datos.getNombre(); }
+  public Telefono getTelefono() { return datos.getTelefono(); }
+  public Email getMail() { return datos.getMail(); }
+  public String getUsuario() { return datos.getUser(); }
+  public String getPass() { return datos.getPassword(); }
 
   public void update(String mensaje) {
-    System.out.println("Notificación para " + nombre + ": " + mensaje);
+    System.out.println("Notificación para " + getNombre() + ": " + mensaje);
   }
 
   /*//login y logout

@@ -5,30 +5,16 @@ public class AtencionCliente extends Usuario {
     private String area;
     private int nivelSoporte;
 
-    //constructor
-    public AtencionCliente(
-            String nombre,
-            Telefono telefono,
-            Email mail,
-            String usuario,
-            String contrasenia,
-            String area,
-            int nivelSoporte
-    ) {
-        super(nombre, telefono, mail, usuario, contrasenia);
+    //constructor actualizado con el objeto DatosUser
+    public AtencionCliente(DatosUser datos, String area, int nivelSoporte){
+        super(datos);
         this.area = area;
         this.nivelSoporte = nivelSoporte;
     }
 
-    //onstructor 
-    public AtencionCliente(
-            String nombre,
-            Telefono telefono,
-            Email mail,
-            String usuario,
-            String contrasenia
-    ) {
-        super(nombre, telefono, mail, usuario, contrasenia);
+    //constructor actualizado con el objeto DatosUser
+    public AtencionCliente(DatosUser datos) {
+        super(datos);
         this.area = "Atención al Cliente";
         this.nivelSoporte = 1;
     }

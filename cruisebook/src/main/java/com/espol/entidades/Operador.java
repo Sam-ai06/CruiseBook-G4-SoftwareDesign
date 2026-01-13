@@ -4,11 +4,11 @@ import com.espol.enums.estadoCabina;
 
 public class Operador extends Usuario {
 
-  // Constructor
-  public Operador(String nombre, Telefono telefono, Email mail, String usuario, String contrasenia) {
-    super(nombre, telefono, mail, usuario, contrasenia);
+  // Constructor actualizado con el objeto DatosUser
+  public Operador(DatosUser datos) {
+    super(datos);
   }
-
+  
   // Métodos principales
   public void definirPoliticaCancelacion(PoliticaCancelacion politica) {
     // to do

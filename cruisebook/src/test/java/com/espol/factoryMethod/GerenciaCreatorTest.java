@@ -1,7 +1,9 @@
 package com.espol.factoryMethod;
 import com.espol.entidades.Telefono;
 import com.espol.entidades.Email;
+import com.espol.entidades.DatosUser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,12 +17,17 @@ public class GerenciaCreatorTest {
     void testCreateUser() {
         UsersCreator creator = new GerenciaCreator("Finanzas");
 
-        Usuario user = creator.createUser(
-                "Laura", new Telefono("077"), new Email("l@test.com"), "laura", "123"
+        DatosUser datosLaura = new DatosUser("Laura", new Telefono("0771234567"), 
+            new Email("l@test.com"), "laura", "123"
         );
 
-        assertNotNull(user);
-        assertTrue(user instanceof Gerencia);
+        Usuario user = creator.createUser(datosLaura);
 
+        // verificaciones
+        assertNotNull(user, "El objeto gerente no deberia ser nulo");
+        assertTrue(user instanceof Gerencia, "Debe ser una instancia de Gerencia");
+        
+        Gerencia gerente = (Gerencia) user;
+        assertEquals("Finanzas", gerente.getDepartamento(), "El departamento debe coincidir con el de la fabrica");
     }
 }

@@ -15,7 +15,6 @@ import com.espol.entidades.Tarifa;
 import com.espol.entidades.Usuario;
 import com.espol.entidades.notifSender;
 import com.espol.enums.estadoCabina;
-import com.espol.enums.medioNotif;
 import com.espol.enums.tipoCabina;
 import com.espol.factoryMethod.ClienteCreator;
 import com.espol.factoryMethod.GerenciaCreator;
@@ -23,6 +22,8 @@ import com.espol.factoryMethod.OperadorCreator;
 import com.espol.factoryMethod.UsersCreator;
 import com.espol.entidades.Telefono;
 import com.espol.entidades.Email;
+import com.espol.entidades.DatosUser;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -33,19 +34,16 @@ public class Main {
         UsersCreator operadorCreator = new OperadorCreator();
         UsersCreator gerenciaCreator = new GerenciaCreator("Atención al cliente");
 
-        Usuario cliente1 = clienteCreator.createUser("Samuel", new Telefono("0989765439"), 
-        new Email("samuel@mail.com"), "samuel", "1234");
-        
+        Usuario cliente1 = clienteCreator.createUser(new DatosUser(
+            "Samuel", new Telefono("0989765439"), new Email("samuel@mail.com"), "samuel", "1234"));
 
-        Usuario operador1 = operadorCreator.createUser("Annie", new Telefono("0987654312"), 
-        new Email("annie@mail.com"), "annie", "abcd");
-        
+        Usuario operador1 = operadorCreator.createUser(new DatosUser(
+            "Annie", new Telefono("0987654312"), new Email("annie@mail.com"), "annie", "abcd"));
 
-        Usuario gerencia1 = gerenciaCreator.createUser("Mathias", new Telefono("0976543098"), 
-        new Email("mathias@mail.com"), "mathias", "4321");
+        Usuario gerencia1 = gerenciaCreator.createUser(new DatosUser(
+            "Mathias", new Telefono("0976543098"), new Email("mathias@mail.com"), "mathias", "4321"));
         
-        List<Usuario> usuarios = List.of(cliente1, operador1, gerencia1);
-
+        List<Usuario> usuarios = new ArrayList<>(List.of(cliente1, operador1, gerencia1));
         Usuario usuarioLogueado = null;
 
         while (true) {
@@ -56,68 +54,56 @@ public class Main {
             int op = sc.nextInt();
             sc.nextLine();
 
+            if (op == 2) break;
+
             if (op == 1) {
                 System.out.print("Usuario: ");
                 String user = sc.nextLine();
                 System.out.print("Contraseña: ");
                 String pass = sc.nextLine();
 
-                /*// Validar login
-                for (Usuario u : usuarios) {
-                    if (u.login(user, pass)) {
+               for (Usuario u : usuarios) {
+                    if (u.getUsuario().equals(user) && u.getPass().equals(pass)) {
                         usuarioLogueado = u;
                         System.out.println("Inicio de sesión exitoso. Bienvenido, " + u.getNombre());
                         break;
-                    }*/
+                    }
                 }
 
                 if (usuarioLogueado == null) {
                     System.out.println("Credenciales incorrectas. ¿Desea crear una cuenta? (s/n):");
                     String respuesta = sc.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
-                        System.out.print("Ingrese su nombre: ");
-                        String nombre = sc.nextLine();
-                        System.out.print("Ingrese su teléfono: ");
-                        String telefono = sc.nextLine();
-                        System.out.print("Ingrese su email: ");
-                        String email = sc.nextLine();
-                        System.out.print("Ingrese su usuario: ");
-                        String nuevoUser = sc.nextLine();
-                        System.out.print("Ingrese su contraseña: ");
-                        String nuevaPass = sc.nextLine();
+                        //registro de nuevo cliente refactorizado
+                        System.out.print("Nombre: "); String nombre = sc.nextLine();
+                        System.out.print("Teléfono: "); String telf = sc.nextLine();
+                        System.out.print("Email: "); String mail = sc.nextLine();
+                        System.out.print("Usuario: "); String nUser = sc.nextLine();
+                        System.out.print("Pass: "); String nPass = sc.nextLine();
 
-                        Cliente nuevoCliente = new Cliente(nombre, new Telefono(telefono), new Email(email), nuevoUser, nuevaPass);
-                        ((ArrayList<Usuario>) usuarios).add(nuevoCliente);
-                        System.out.println("Cuenta creada exitosamente. Ahora puede iniciar sesión.");        
-                        continue;              
-                    }
-                    else{
-                        System.out.println("Volviendo al menú principal.");
+                        //creamos el objeto DatosUser
+                        DatosUser nuevosDatos = new DatosUser(nombre, new Telefono(telf), new Email(mail), nUser, nPass);
+                        Cliente nuevoCliente = new Cliente(nuevosDatos);
+                        usuarios.add(nuevoCliente);
+                        
+                        System.out.println("Cuenta creada exitosamente.");
                         continue;
                     }
-
-                    //IMPLEMENTACIÓN INICIAL ESTO PROBABLEMENTE VA A IR A SU PROPIA CLASE O MÉTODO QUE SE ENCARGUE DE PROCESAR EL INICIO DE SESIÓN Y REGISTRO
-                    //USO DE BASE DE DATOS O PERSISTENCIA DE ARCHIVOS
-                }
-
-                // Menú según tipo de usuario
-                if (usuarioLogueado instanceof Cliente cliente) {
-                    menuCliente(cliente, sc);
-                } else if (usuarioLogueado instanceof Operador operador) {
-                    menuOperador(operador, sc);
-                } else if (usuarioLogueado instanceof Gerencia gerencia) {
-                    menuGerencia(gerencia, sc);
-                }
-
-                //usuarioLogueado.logout(); eliminar 
-                usuarioLogueado = null;
+                    } else {
+                    //flujo de menús según tipo
+                    if (usuarioLogueado instanceof Cliente cliente) menuCliente(cliente, sc);
+                    else if (usuarioLogueado instanceof Operador operador) menuOperador(operador, sc);
+                    else if (usuarioLogueado instanceof Gerencia gerencia) menuGerencia(gerencia, sc);
+                    
+                    usuarioLogueado = null; //logout
+                    }
             }
         }
+    }
+                
         
-       
-    
-
     // --- Menús específicos ---
+    
     private static void menuCliente(Cliente cliente, Scanner sc) {
         int opcion = 0;
         while (true) {
@@ -210,8 +196,11 @@ public class Main {
 
             switch (op) {
                 case 1 -> {
-                    //cliente simulado (la reserva ya debió existir en el sistema)
-                        Cliente cliente = new Cliente("Cliente Prueba", new Telefono("0000000000"), new Email("cliente@mail.com"), "cliente", "1234");
+                        //cliente simulado
+                        DatosUser datosPrueba = new DatosUser("Cliente Prueba", new Telefono("0000000000"), 
+                            new Email("cliente@mail.com"), "cliente", "1234");
+                        Cliente cliente = new Cliente(datosPrueba);
+
                         //cabina simulada
                         Cabina cabina = new Cabina("101",tipoCabina.INTERIOR,estadoCabina.RESERVADA);
                         //tarifa base
