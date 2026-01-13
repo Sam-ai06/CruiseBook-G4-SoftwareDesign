@@ -41,4 +41,12 @@ public class CabinaTest {
     cabina.setEstado(estadoCabina.RESERVADA);
     assertEquals(estadoCabina.RESERVADA, cabina.getEstado());
   }
+
+  @Test
+    void testCambioEstadoCabina() {
+        Cabina cabina = new Cabina("B2", null, estadoCabina.DISPONIBLE);
+        cabina.ocupar();
+        assertSame(estadoCabina.OCUPADA, cabina.getEstado());
+    }
+
 }
