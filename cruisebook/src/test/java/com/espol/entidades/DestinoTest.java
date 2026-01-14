@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 public class DestinoTest {
     @Test
     void testObtenerResumenRuta() {
-        Destino d = new Destino("Quito", "Capital", "Ecuador");
+        Destino d = new Destino("Manta", "Ciudad portuaria", "Ecuador");
         String resumen = d.obtenerResumenRuta();
-        assertEquals("Quito, Ecuador - Capital", resumen);
+        assertEquals("Manta, Ecuador - Ciudad portuaria", resumen);
     }
 
     @Test
