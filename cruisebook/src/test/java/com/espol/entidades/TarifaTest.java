@@ -16,8 +16,8 @@ public class TarifaTest {
 
     @Test
     void testTarifaInicialPrecioBase() {
-        Tarifa tar = new Tarifa(200);
-        assertEquals(200, tar.getPrecioTotal());
+        Tarifa tar = new Tarifa(200.0);
+        assertEquals(200.0, tar.getPrecioTotal());
     }
 
     @Test
@@ -33,23 +33,21 @@ public class TarifaTest {
         assertEquals(100.0, tarifa.getPrecioTotal());
     }
 
+    // ✅ ESTE ES TR2
     @Test
-    void testAgregarServicioCalculateTotal(){
-        ServicioAdicional servicioTest = new ServicioAdicional("test", 50.0) {
+    void testCalcularTotalConServicioAdicional() {
+        ServicioAdicional servicio = new ServicioAdicional("Servicio", 20.0) {
             @Override
             public double obtenerCosto() {
                 return this.getPrecio();
             }
-            
         };
 
-        Tarifa tar = new Tarifa(10); //precio base puede cambiarse
-        double antes = tar.getPrecioTotal();
-        tar.agregarServicio(servicioTest);
-        double total = tar.calcularTotal();
-        
+        tarifa.agregarServicio(servicio);
 
-        assertEquals(servicioTest, tar);
+        double total = tarifa.calcularTotal();
+
+        assertEquals(120.0, total);
     }
-
 }
+
