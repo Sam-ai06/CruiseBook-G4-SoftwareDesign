@@ -40,4 +40,9 @@ public class Destino {
     public String obtenerResumenRuta() {
         return nombre + ", " + pais + " - " + descripcion;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
