@@ -22,14 +22,12 @@ public class PoliticaCancelacion {
     // Métodos principales
     public double calcularReembolso(Reserva reserva, LocalDateTime fechaActual) {
         // TODO: implementar la lógica real del cálculo
-        // Por ejemplo, podrías calcular la diferencia de días entre la fecha de cancelación
-        // y la fecha de la reserva para determinar el porcentaje de reembolso
+
         return 0.0;
     }
 
     public boolean esCancelGratuita(Reserva reserva) {
         // TODO: implementar la lógica para saber si la cancelación es gratuita
-        // Por ejemplo: return true si la reserva se cancela con más de X días de anticipación
         return false;
     }
 }
