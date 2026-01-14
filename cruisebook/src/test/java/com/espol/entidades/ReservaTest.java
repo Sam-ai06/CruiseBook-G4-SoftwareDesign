@@ -2,6 +2,13 @@ package com.espol.entidades;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.espol.enums.*;
 
 import org.junit.jupiter.api.Test;
@@ -26,4 +33,30 @@ public class ReservaTest {
         assertTrue(resultado);
         assertEquals(estadoReserva.CONFIRMADA, reserva.getEstado());
     }
+
+    @Test
+    void ValidarObserverSetter() {
+    DatosUser datosAlejandro = new DatosUser("alejandro", new Telefono("0932038771"),
+        new Email("testn@testing.com"), "alejo", "123");
+
+    Cliente cliente = new Cliente(datosAlejandro);
+    Cabina cabina = new Cabina("A1", tipoCabina.SUITE, estadoCabina.DISPONIBLE);
+    Tarifa tarifa = new Tarifa(150);
+    Ruta ruta = new Ruta("R1", new ArrayList<>(), new ArrayList<>());
+    Viaje viaje = new Viaje(LocalDate.of(2026, 2, 3), 7, ruta, List.of(cabina));
+    Reserva reserva = new Reserva(cliente, viaje, cabina, tarifa);
+
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    PrintStream original = System.out;
+    System.setOut(new PrintStream(out));
+    try {
+        reserva.setEstado(estadoReserva.CONFIRMADA);
+    } finally {
+        System.setOut(original);
+    }
+
+    String consola = out.toString();
+    assertTrue(consola.contains("La reserva ha cambiado"), "No se notificó el cambio por consola");
+    assertTrue(consola.contains("CONFIRMADA"), "No aparece el nuevo estado en la notificación");
+}
 }
