@@ -33,4 +33,23 @@ public class TarifaTest {
         assertEquals(100.0, tarifa.getPrecioTotal());
     }
 
+    @Test
+    void testAgregarServicioCalculateTotal(){
+        ServicioAdicional servicioTest = new ServicioAdicional("test", 50.0) {
+            @Override
+            public double obtenerCosto() {
+                return this.getPrecio();
+            }
+            
+        };
+
+        Tarifa tar = new Tarifa(10); //precio base puede cambiarse
+        double antes = tar.getPrecioTotal();
+        tar.agregarServicio(servicioTest);
+        double total = tar.calcularTotal();
+        
+
+        assertEquals(servicioTest, tar);
+    }
+
 }

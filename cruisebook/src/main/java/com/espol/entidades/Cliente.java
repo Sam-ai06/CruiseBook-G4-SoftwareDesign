@@ -67,4 +67,6 @@ public class Cliente extends Usuario implements Subscriber {
     System.out.println("Notificación para " + getNombre() + ": " + mensaje);
   }
 
+  
+
 }

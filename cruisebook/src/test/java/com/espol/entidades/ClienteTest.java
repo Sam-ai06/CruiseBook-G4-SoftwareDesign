@@ -48,4 +48,41 @@ public class ClienteTest {
         assertNull(reserva);
         assertTrue(cliente.getReservas().isEmpty());
     }
+
+    @Test
+    void testReservarCabinaNull(){
+        try {
+            cliente.reservarCabina(null, new Crucero());
+        } catch (IllegalArgumentException e) {
+            assertEquals("La cabina no puede ser nula", e.getMessage());
+        }
+
+        try {
+            Cabina cabina = new Cabina("C3", tipoCabina.SUITE, estadoCabina.DISPONIBLE);
+            cliente.reservarCabina(cabina, null);
+        } catch (IllegalArgumentException e) {
+            assertEquals("El crucero no puede ser nulo", e.getMessage());
+        }
+    }
+
+    @Test
+    void testReservarCabinaOcupada(){
+        Cabina cabina = new Cabina("C4", tipoCabina.SUITE, estadoCabina.OCUPADA);
+        Reserva reserva = cliente.reservarCabina(cabina, new Crucero());
+
+        assertNull(reserva);
+        assertTrue(cliente.getReservas().isEmpty());
+    }
+
+
+    @Test
+    void testReservarCabinaDisponible(){
+        Cabina cabina = new Cabina("C5", tipoCabina.SUITE, estadoCabina.DISPONIBLE);
+        Reserva reserva = cliente.reservarCabina(cabina, new Crucero());
+
+        assertNotNull(reserva);
+        assertEquals(1, cliente.getReservas().size());
+
+    }
+
 }

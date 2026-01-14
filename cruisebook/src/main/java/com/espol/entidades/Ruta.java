@@ -1,17 +1,18 @@
 package com.espol.entidades;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ruta {
     private String origen;
-    private ArrayList<Destino> destinos;
-    private ArrayList<String> escalas;
+    private List<Destino> destinos;
+    private List<String> escalas;
 
     // Constructor
-    public Ruta(String origen, ArrayList<Destino> destinos, ArrayList<String> escalas) {
+    public Ruta(String origen, List<Destino> destinos2, List<String> escalas2) {
         this.origen = origen;
-        this.destinos = destinos;
-        this.escalas = escalas;
+        this.destinos = destinos2;
+        this.escalas = escalas2;
     }
 
     // Getters y Setters
@@ -23,19 +24,19 @@ public class Ruta {
         this.origen = origen;
     }
 
-    public ArrayList<Destino> getDestinos() {
+    public List<Destino> getDestinos() {
         return destinos;
     }
 
-    public void setDestinos(ArrayList<Destino> destinos) {
+    public void setDestinos(List<Destino> destinos) {
         this.destinos = destinos;
     }
 
-    public ArrayList<String> getEscalas() {
+    public List<String> getEscalas() {
         return escalas;
     }
 
-    public void setEscalas(ArrayList<String> escalas) {
+    public void setEscalas(List<String> escalas) {
         this.escalas = escalas;
     }
 
