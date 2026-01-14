@@ -42,4 +42,22 @@ public class ViajeTest {
         assertEquals(1, disponibles.size());
         assertEquals("1", disponibles.get(0).getNumeroCabina());
     }
+
+    @Test
+    void ObtenercabinasDisponibles_tipoSuite(){
+        Cabina c1 = new Cabina("1", tipoCabina.SUITE, estadoCabina.DISPONIBLE);
+        Cabina c2 = new Cabina("2", tipoCabina.SUITE, estadoCabina.DISPONIBLE);
+        Cabina c3 = new Cabina("3", tipoCabina.INTERIOR, estadoCabina.RESERVADA);
+
+        Viaje viaje = new Viaje(
+                LocalDate.now(),
+                7,
+                null,
+                List.of(c1, c2, c3)
+        );
+        List<Cabina> disponibles = viaje.obtenerCabinasDisponibles(tipoCabina.SUITE);
+        assertEquals(1, disponibles.size());
+        assertEquals("1", disponibles.get(0).getNumeroCabina());
+    }
+    
 }
