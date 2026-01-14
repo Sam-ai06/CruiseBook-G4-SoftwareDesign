@@ -33,7 +33,6 @@ public class TarifaTest {
         assertEquals(100.0, tarifa.getPrecioTotal());
     }
 
-    // ✅ ESTE ES TR2
     @Test
     void testCalcularTotalConServicioAdicional() {
         ServicioAdicional servicio = new ServicioAdicional("Servicio", 20.0) {
