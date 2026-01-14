@@ -3,8 +3,8 @@ import com.espol.entidades.Telefono;
 import com.espol.entidades.Email;
 import com.espol.entidades.DatosUser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,5 +43,28 @@ public class AtencionClienteTest {
     void testSetNivelSoporte() {
         atencion.setNivelSoporte(3);
         assertEquals(3, atencion.getNivelSoporte());
+    }
+
+    @Test
+    void testIncidenteNull() {
+        assertDoesNotThrow(() -> {
+            atencion.resolverIncidente(null);
+        });
+    }
+
+    @Test
+    void testConstructorConParametros() {
+        DatosUser datos = new DatosUser(
+            "Carlos",
+            new Telefono("0999999999"),
+            new Email("c@test.com"),
+            "carlos",
+            "pass123"
+        );  
+        AtencionCliente ac = new AtencionCliente(datos, "Reclamos", 3);
+
+        assertEquals("Carlos", ac.getNombre());
+        assertEquals("Reclamos", ac.getArea());
+        assertEquals(3, ac.getNivelSoporte());
     }
 }
