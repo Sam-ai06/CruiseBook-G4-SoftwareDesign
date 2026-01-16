@@ -1,57 +1,48 @@
 package com.espol.entidades;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Ruta {
-    private String origen;
-    private List<Destino> destinos;
-    private List<String> escalas;
 
-    // Constructor
-    public Ruta(String origen, List<Destino> destinos2, List<String> escalas2) {
+    private final String origen;
+    private final List<Destino> destinos;
+    private final List<String> escalas;
+
+    public Ruta(String origen, List<Destino> destinos, List<String> escalas) {
         this.origen = origen;
-        this.destinos = destinos2;
-        this.escalas = escalas2;
+        this.destinos = destinos;
+        this.escalas = escalas;
     }
 
-    // Getters y Setters
     public String getOrigen() {
         return origen;
     }
 
-    public void setOrigen(String origen) {
-        this.origen = origen;
-    }
-
     public List<Destino> getDestinos() {
-        return destinos;
-    }
-
-    public void setDestinos(List<Destino> destinos) {
-        this.destinos = destinos;
+        return List.copyOf(destinos);
     }
 
     public List<String> getEscalas() {
-        return escalas;
+        return List.copyOf(escalas);
     }
 
-    public void setEscalas(List<String> escalas) {
-        this.escalas = escalas;
-    }
-
-    // Método principal
     public String obtenerResumenRuta() {
-        StringBuilder resumen = new StringBuilder();
-        resumen.append("Origen: ").append(origen).append("\n");
+        return """
+               Origen: %s
+               Destinos: %s
+               Escalas: %s
+               """.formatted(
+                origen,
+                obtenerDestinosComoTexto(),
+                String.join(", ", escalas)
+        );
+    }
 
-
-        ArrayList<String> destinosStr = new ArrayList<>(); //convertimos destinos a string
-        for (Destino d : destinos) {
-            destinosStr.add(d.toString());
-        }
-        resumen.append("Destinos: ").append(String.join(", ", destinosStr)).append("\n");
-        resumen.append("Escalas: ").append(String.join(", ", escalas));
-        return resumen.toString();
+    private String obtenerDestinosComoTexto() {
+        return destinos.stream()
+                        .map(d -> d.obtenerDescripcion())
+                        .collect(Collectors.joining(", "));
     }
 }
+

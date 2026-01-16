@@ -34,7 +34,6 @@ public class Reserva implements ReservaComponent{
     }
 
 
-    // getters y setters de Reserva
     public Usuario getCliente(){
         return cliente;
     }
@@ -124,6 +123,7 @@ public class Reserva implements ReservaComponent{
 
     @Override
     public double calcularTotal() {
-        return tarifa.getPrecioTotal();
+        return tarifa.calcularTotal();
     }
+
 }
