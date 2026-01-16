@@ -17,7 +17,7 @@ public class TarifaTest {
     @Test
     void testTarifaInicialPrecioBase() {
         Tarifa tar = new Tarifa(200.0);
-        assertEquals(200.0, tar.getPrecioTotal());
+        assertEquals(200.0, tar.calcularTotal());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class TarifaTest {
     void testCalcularTotalSinServicios() {
         double total = tarifa.calcularTotal();
         assertEquals(100.0, total);
-        assertEquals(100.0, tarifa.getPrecioTotal());
+        assertEquals(100.0, tarifa.calcularTotal());
     }
 
     @Test
